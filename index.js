@@ -2,6 +2,22 @@ const express = require('express');
 const port = 1428;
 
 const app = express();
+// 4 Use Static Files
+app.use(express.static('./assets'));
+
+// 3 Use Express Ejs Layout
+const expressLayouts = require('express-ejs-layouts');
+app.use(expressLayouts);
+// 5 link css inside head 
+app.set('layout extractStyles',true);
+app.set('layout extractScripts',true);
+
+// 1 Use Express Router
+app.use('/',require('./routes'));
+
+// 2 Set up the View Engine
+app.set('view engine','ejs');
+app.set('views','./views');
 
 
 app.listen(port,function(err){
