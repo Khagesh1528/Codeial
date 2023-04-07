@@ -1,0 +1,22 @@
+footer {
+  height: 10%;
+  background-color: gray;
+  display: flex;
+  color: white;
+}
+
+footer #des-footer {
+  margin-top: 10px;
+  text-align: center;
+  margin-left: 2%;
+}
+
+footer #des-footer #footer-link {
+  margin-left: 110%;
+  margin-top: -17%;
+}
+
+footer #des-footer #footer-link a {
+  text-decoration: none;
+  color: white;
+}

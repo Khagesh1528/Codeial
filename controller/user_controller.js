@@ -3,29 +3,35 @@ const User = require('../models/user_schema');
 
 module.exports.profile = function(req,res){
     // 1st check user id present in cookies or not
-    if(req.cookies.user_id){
-        // 2nd Find The User
-        User.findById(req.cookies.user_id,function(err,user){
-            // 3rd hander user found
-            if(user){
-                return res.render('profile',{
+    // if(req.cookies.codeial){
+    //     // 2nd Find The User
+    //     User.findById(req.cookies.codeial,function(err,user){
+    //         // 3rd hander user found
+    //         if(user){
+    //             return res.render('profile',{
+    //                 title:"User Profile",
+    //                 user:user
+    //             });
+    //         }
+    //         else{
+    //             return res.redirect('/users/sign-in')
+    //         }
+    //     });
+    // }
+    // else{
+    //     return res.redirect('/users/sign-in');
+    // }
+    return res.render('profile', {
                     title:"User Profile",
-                    user:user
                 });
-            }
-            else{
-                return res.redirect('/users/sign-in')
-            }
-        });
-    }
-    else{
-        return res.redirect('/users/sign-in');
-    }
     
 };
 
 // render the sign up page
 module.exports.signUp = function(req,res){
+    if(req.isAuthenticated()){
+        return res.redirect('/users/profile');
+    }
     return res.render('signup',{
         title:"Sign Up"
     });
@@ -33,6 +39,9 @@ module.exports.signUp = function(req,res){
 
 // render the sing In page
 module.exports.signIn = function(req,res){
+    if (req.isAuthenticated()) {
+        return res.redirect('/users/profile');
+    }
     return res.render('signin',{
         title:"Sign In"
     })
@@ -71,27 +80,18 @@ module.exports.create = function(req,res){
 
 // When USer Sign In & Create Session
 module.exports.createSession = function(req,res){
-    // Step TO Authenticate
-    // 1 Find The User
-    User.findOne({email:req.body.email},function(err,user){
-        if(err){
-            console.log('Error in Signing In ', err);
-            return; 
-        }
-        //2nd Handle User Found
-        if(user){
-            // 3rd Check the password is correct?
-            if(user.password != req.body.password){
-                return res.redirect('back'); 
-            }
-            // 4th Create The Session
-            res.cookie('user_id',user.id);
-            return res.redirect('/users/profile');
-        }
-        else{
-            // Handle User Not Found
-            return res.redirect('back');
-        }
-    });
+    console.log('Create Session');
+    
+    return res.redirect('/');
+   
+}
 
+// user sign out  and destroy the session
+
+module.exports.destroySession = function(req,res){
+        // passport handel log out
+        req.logout( function(err){
+            if (err) { return next(err); }
+            return res.redirect('/')
+        });
 }

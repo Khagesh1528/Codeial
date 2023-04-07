@@ -1,0 +1,26 @@
+header{
+    background-color:mediumslateblue;
+    height: 5%;
+    color: white;
+    #page-logo{
+        margin-left: 5px;
+        font-size: 22px;
+    }
+    ul{
+        display: flex;
+        flex-direction: row;
+        margin-left: 80%;
+        margin-top:-50px;
+        justify-content: space-around;
+        li{
+           
+            list-style: none;
+            
+            a{
+                font-size: 22px;
+                color: white;
+                text-decoration: none;
+            }
+        }
+    }
+}
