@@ -47,7 +47,7 @@ app.set('views','./views');
 app.use(session({
     name: "codeial",
     // to do change the secret before deployement in produnction mode
-    secret: 'Khagehwar',
+    secret: 'Khageshwar',
     saveUninitialized:'false',
     resave:'false',
     cookie: {
