@@ -9,6 +9,8 @@ console.log('Router Is Loaded');
 router.get('/',homeController.home);
 // for Any Further Routers,access from the main index
 router.use('/users',require('./users'))
+// for the post create
+router.use('/posts',require('./post'));
 
 
 
