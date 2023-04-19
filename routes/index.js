@@ -11,6 +11,8 @@ router.get('/',homeController.home);
 router.use('/users',require('./users'))
 // for the post create
 router.use('/posts',require('./post'));
+// for the comment create
+router.use('/comments',require('./comment'));
 
 
 
