@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="/css/home.css">
+
 <h1>
     Home Page
 </h1>
@@ -15,6 +17,11 @@
             <% for( post of posts) {%>
                 <li>
                    <p>
+                    <% if(locals.user && locals.user.id == post.user.id) {%>
+                        <small>
+                            <a href="/posts/destroy/<%= post.id %>">X</a>
+                        </small>
+                    <%}%>
                      <%= post.content %>
                     <br>
                    <small>
