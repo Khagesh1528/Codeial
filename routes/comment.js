@@ -8,5 +8,7 @@ const commentsController = require('../controller/comments_controller');
 
 router.post('/create', passport.checkAuthentication, commentsController.create);
 
+// Delete the Comment
+router.get('/destroy/:id',passport.checkAuthentication,commentsController.destroy);
 
 module.exports = router;
