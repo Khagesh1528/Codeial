@@ -17,6 +17,7 @@ module.exports.profile = function(req,res){
 module.exports.update = function(req,res){
     if(req.user.id == req.params.id){
         User.findByIdAndUpdate(req.params.id, req.body,function(err,post){
+            req.flash('success', 'SuccessFully Updated the Profile')
             return res.redirect('back');
         })
     }
@@ -50,6 +51,7 @@ module.exports.signIn = function(req,res){
 module.exports.create = function(req,res){
     // first Check Both Passowrd Are Same Or Not
     if(req.body.password != req.body.confirm_password){
+        req.flash('error', 'Password Does Not Matches');
         return res.redirect('back');
     }
     // Now Check Kya User Pahle se Exist Karta hain
@@ -65,7 +67,7 @@ module.exports.create = function(req,res){
                     console.log('Error in Creating User', err);
                     return;
                 }
-                
+                    req.flash('success', 'Thanks For Signning Up !! ')
                     return res.redirect('/users/sign-in');
                 
             });
