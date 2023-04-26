@@ -1,4 +1,15 @@
-section #list-post-container .post-comments-list {
-  background-color: yellow;
-  width: fit-content;
+#home-container {
+  display: flex;
+}
+
+#home-container #feed-post {
+  width: 70%;
+  padding: 10px;
+}
+
+#home-container #users_friends {
+  width: 30%;
+  padding: 10px;
+  height: 100%;
+  border-left: 1px solid black;
 }

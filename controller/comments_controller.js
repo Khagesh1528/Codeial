@@ -2,44 +2,55 @@
 const Comment = require('../models/comments_schema');
 const Post = require('../models/post_schema');
 
-module.exports.create = function (req, res) {
+module.exports.create = async function (req, res) {
 
-    Post.findById(req.body.post, function (err, post) {
+    try {
+        let post = await Post.findById(req.body.post);
+
         if (post) {
-            Comment.create({
+
+            let comment = await Comment.create({
                 content: req.body.content,
                 post: req.body.post,
                 user: req.user._id
-            }, function (err, comment) {
-                // Handle Error 
-                console.log('Comment Push');
-                post.comments.push(comment);
-                post.save();
-                res.redirect('/');
             });
-        }
-    });
+
+            post.comments.push(comment);
+            post.save();
+            res.redirect('/');
+        };
+    }
+    catch (err) {
+        console.log('Error', err);
+        return;
+    }
+
+
 }
 
 // Remove The Comments 
-module.exports.destroy = function (req, res) {
+module.exports.destroy = async function (req, res) {
     // Find The Comment Using params
-    Comment.findById(req.params.id, function (err, comment) {
+    try {
+        let comment = await Comment.findById(req.params.id)
+
         // Check Point Kya Jisne Comment Kiya Hain 
         // Or Jo Request Kar Raha Hai Ek Hi Hain
         if (comment.user == req.user.id) {
-            console.log('Comment User', comment.user);
-            console.log('Request User Id', req.user.id);
             // Yaha Comments Me Se Post ko store kar lete hain
             let postId = comment.user;
             comment.remove();
             // Yaha Se us post ko khojte hai or update karte hain
-            Post.findByIdAndUpdate(postId, { $pull: { comments: req.user.id } }, function (err, post) {
-                return res.redirect('back');
-            });
+            let post = await Post.findByIdAndUpdate(postId, { $pull: { comments: req.user.id } })
+            return res.redirect('back');
         }
         else {
             return res.redirect('back');
         }
-    });
+    }
+    catch (err) {
+        console.log('Error', err);
+        return;
+    }
+
 }

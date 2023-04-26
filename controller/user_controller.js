@@ -2,25 +2,7 @@
 const User = require('../models/user_schema');
 
 module.exports.profile = function(req,res){
-    // 1st check user id present in cookies or not
-    // if(req.cookies.codeial){
-    //     // 2nd Find The User
-    //     User.findById(req.cookies.codeial,function(err,user){
-    //         // 3rd hander user found
-    //         if(user){
-    //             return res.render('profile',{
-    //                 title:"User Profile",
-    //                 user:user
-    //             });
-    //         }
-    //         else{
-    //             return res.redirect('/users/sign-in')
-    //         }
-    //     });
-    // }
-    // else{
-    //     return res.redirect('/users/sign-in');
-    // }
+   
     User.findById(req.params.id,function(err,user){
         return res.render('profile', {
             title: "User Profile",
@@ -97,6 +79,7 @@ module.exports.create = function(req,res){
 // When USer Sign In & Create Session
 module.exports.createSession = function(req,res){
     console.log('Create Session');
+    req.flash('success', 'Logged In Successfully !!! ')
     
     return res.redirect('/');
    
@@ -108,6 +91,8 @@ module.exports.destroySession = function(req,res){
         // passport handel log out
         req.logout( function(err){
             if (err) { return next(err); }
+            req.flash('success','You Have Logged Out!!')
             return res.redirect('/')
         });
+       
 }

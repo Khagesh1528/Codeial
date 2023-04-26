@@ -1,30 +1,18 @@
-  <link rel="stylesheet" href="/css/profile.css">
-  
-  <h1>
-    Profile Page
-    </h1>
-    
+<link rel="stylesheet" href="/css/profile.css" />
 
-    <!-- If User matches then show the form to update name or email -->
-    <% if(user.id == profile_user.id) {%>
-       <form action="/users/update/<%= profile_user.id%>" method="post">
-        <input type="text" name="name" value="<%= profile_user.name%>" required placeholder="Enter Name">
-        <input type="email" name="email" value="<%= profile_user.email%>" required placeholder="Enter Email">
-        <input type="submit" value="Update">
-       </form>
-     <%}
-    else{%>
-    <p>
-      Name : <%= profile_user.name%>
+<h1>Profile Page</h1>
+
+<!-- If User matches then show the form to update name or email -->
+<% if(user.id==profile_user.id) {%>
+  <form action="/users/update/<%= profile_user.id%>" method="post">
+    <input type="text" name="name" value="<%= profile_user.name%>" required placeholder="Enter Name" />
+    <input type="email" name="email" value="<%= profile_user.email%>" required placeholder="Enter Email" />
+    <input type="submit" value="Update" />
+  </form>
+  <%} else{%>
+    <p>Name : <%= profile_user.name%>
     </p>
-    <p> Email: <%= profile_user.email%></p>
-    
-     <%}%>
+    <p>Email: <%= profile_user.email%>
+    </p>
 
-     
-
-         
-
-  
-
-
+    <%}%>
